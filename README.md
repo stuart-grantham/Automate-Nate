@@ -14,6 +14,6 @@ I'm using a node.js script utilising Selenium for the webpage automation. Node, 
 
 ## Unit Test
 to be run after `automation_script` to check its performance. To run `node test_script` while in the path
-The script will loop through the html outputs which contain records of all clicks, and inputs. It will specifically test the inputs into the for by re-opening the stored .html webpages in selenium, and matching up what was meant to be input and what actually got inputted.
+The script will loop through the html outputs which contain records of all clicks, and inputs. It will specifically test the inputs done by the `automation_script` by re-opening the stored .html webpages in selenium, and matching up what was meant to be input and what actually got inputted.
 
  
