@@ -1,7 +1,7 @@
 # Automate-Nate
 A program that automates the tech challenge, while solving issues with popups and accurately creating a representation of the webpage stored in the `/output/` folder.  
 
-It makes good use of Selenium's wait method that allows for very deterministic web automation
+It uses a execution function `nate action()` that takes a web-element finder, the action to be done, and the condition that the action has been completed correctly. It then makes good use of Selenium's wait method before and after the element has been actioned that allows for very deterministic web automation. All the while capturing the current source, with attributes added (`action-type`, `nate-dict-key`, and `nate-value-input`) to indicate what's been actioned.
 
 ## Requirements
 
