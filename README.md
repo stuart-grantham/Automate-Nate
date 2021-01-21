@@ -1,5 +1,5 @@
 # Automate-Nate
-A program that automates the tech challenge, while solving issues with popups and accurately creating a representation of the webpage stored in the '/output/' folder.  
+A program that automates the tech challenge, while solving issues with popups and accurately creating a representation of the webpage stored in the `/output/` folder.  
 
 It makes good use of Selenium's wait method that allows for very deterministic web automation
 
