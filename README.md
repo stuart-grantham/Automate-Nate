@@ -7,7 +7,9 @@ It uses a execution function `nate action()` that takes a web-element finder, th
 
 Selenium webdriver: `npm install selenium-webdriver`
 Chrome webdriver binary for windows is included. [docs link](https://www.selenium.dev/documentation/en/selenium_installation/installing_webdriver_binaries/)
+
 if using mac, unzip `webdrivermac1` and replace `webdriver.exe` with the contents. Also `const output_folder = process.cwd() + "\\output\\"` must be replaced with `const output_folder = process.cwd() + "/output/" on the scripts. 
+
 To run `node automation_script.js` while in the path
 
 ## Techstack
