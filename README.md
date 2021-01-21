@@ -9,7 +9,7 @@ Selenium webdriver: `npm install selenium-webdriver`
 Chrome webdriver binary is included. [docs link](https://www.selenium.dev/documentation/en/selenium_installation/installing_webdriver_binaries/)
 to run `node automation_script.js` while in the path
 
-## Techstck
+## Techstack
 I'm using a node.js script utilising Selenium for the webpage automation. Node, because it simplifies scripting in the webpage as the only language is javascript and Selenium because its widely used and reliable.
 
 ## Unit Test
