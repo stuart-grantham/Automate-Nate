@@ -1,16 +1,16 @@
-const {Builder, By, Key, until, WebElementCondition, Condition} = require('selenium-webdriver');
-const fs = require('fs');
+const {Builder, By, Key, until, WebElementCondition, Condition} = require('selenium-webdriver')
+const fs = require('fs')
 
 async function close_popup(driver){
     //closes the open popup (if there is one)
     let popup = await driver.findElement(By.css("div[id=popup] > section > h2 > input[type=button]"))
     try {
 		//attempt to notice if the popup is visible
-        driver.wait(until.elementIsVisible(popup), 4000)
+        await driver.wait(until.elementIsVisible(popup), 4000)
     }
     catch(e){
         //sucess, no popup was visilble
-        return;
+        return
     }
     //otherwise, click close
     await popup.click()
@@ -62,7 +62,7 @@ async function nate_action(driver, element_to_be_actioned, action_to_take, wait_
                 await driver.wait(until.elementIsVisible(el),wait_time)
                 await el.click()
             }
-            break;
+            break
 
         case "input":
             //add the attribute on the object to be input
@@ -83,7 +83,7 @@ async function nate_action(driver, element_to_be_actioned, action_to_take, wait_
                 await el.click()
                 await el.sendKeys(automation_inputs[dict_key])
             }
-            break;
+            break
 
 
     }
@@ -169,7 +169,7 @@ async function main_run() {
             
         }
         finally{
-            driver.close();
+            driver.close()
         }
     }
     
@@ -181,9 +181,9 @@ let input_file = fs.readFileSync('automation_inputs.json')
 let automation_inputs = JSON.parse(input_file)
 //add a phone number
 automation_inputs.phone = "0123456789"
-let nate_test_site = "https://nate-eu-west-1-prediction-test-webpages.s3-eu-west-1.amazonaws.com/tech-challenge/page1.html";
+let nate_test_site = "https://nate-eu-west-1-prediction-test-webpages.s3-eu-west-1.amazonaws.com/tech-challenge/page1.html"
 //set the wait time 
-var wait_time = 20000;
+var wait_time = 20000
 //
 action_number = 0
 
