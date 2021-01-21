@@ -5,6 +5,7 @@ async function close_popup(driver){
     //closes the open popup (if there is one)
     let popup = await driver.findElement(By.css("div[id=popup] > section > h2 > input[type=button]"))
     try {
+		//attempt to notice if the popup is visible
         driver.wait(until.elementIsVisible(popup), 4000)
     }
     catch(e){
@@ -16,39 +17,22 @@ async function close_popup(driver){
     //no popup now!
 }
 
-async function mark_visible(driver){
-    //marks all visibile elements.... fairly inefficiently so unused
-    let all_elements = await driver.findElements(By.css("*"));
-    let visible_elements = all_elements.map(el => el.isDisplayed())
-    //neat bit of functional programming
-    var visible_elements_list = await Promise.all(visible_elements)
-    for (el in all_elements){
 
-         if (visible_elements_list[el]){
-            await driver.executeScript("arguments[0].setAttribute('nate-visible','true')",all_elements[el])
-            }
-            else {
-            await driver.executeScript("arguments[0].setAttribute('nate-visible','false')",all_elements[el])
-            }
-        
-    }
-
-
-
-}
 
 async function nate_action(driver, element_to_be_actioned, action_to_take, wait_condition = null, dict_key = null) {
 
     //performs a click, or input according to the standards wanted (adding attribute to the DOM, saves page, ect), 
     // driver is just the webdriver object 
     // element_to_be_actioned is the locator for the element
+	// wait_condition is a truthy function that will get waited on
+	//dict_key is just the key of the dictionary being input
 
     var page_title
     var page_source
     var file_name
-    let el = await driver.findElement(element_to_be_actioned);
+    let el = await driver.findElement(element_to_be_actioned)
     try {
-
+		//make sure the element is visible before interacting
         await driver.wait(until.elementIsVisible(el),wait_time)
     }
     catch(e){
@@ -62,8 +46,7 @@ async function nate_action(driver, element_to_be_actioned, action_to_take, wait_
         case "check":
             //add the attribute on the object to be clicked
             await driver.executeScript("arguments[0].setAttribute('action-type','"+action_to_take+"')",el)
-            //mark the visible nodes
-            //get a representation of the page and save it
+            //get a pre action representation of the page and save it
             page_title = await driver.getTitle()
             page_source = await driver.getPageSource()
             var file_name = output_folder+"Action "+action_number+" Before "+ action_to_take + " Input " + dict_key + " Title " + page_title + ".html"
@@ -84,6 +67,7 @@ async function nate_action(driver, element_to_be_actioned, action_to_take, wait_
         case "input":
             //add the attribute on the object to be input
             await driver.executeScript("arguments[0].setAttribute('action-type','input')",el)
+            //get a pre action representation of the page and save it
             page_title = await driver.getTitle()
             page_source = await driver.getPageSource()
             file_name = output_folder+"Action "+action_number+" Before "+ action_to_take + " Input " + dict_key + " Title " + page_title + ".html"
@@ -93,6 +77,7 @@ async function nate_action(driver, element_to_be_actioned, action_to_take, wait_
                 await el.sendKeys(automation_inputs[dict_key])
             }
             catch(e){
+				//maybe a popup, close it and retry
                 await close_popup(driver)
                 await driver.wait(until.elementIsVisible(el),wait_time)
                 await el.click()
@@ -104,7 +89,6 @@ async function nate_action(driver, element_to_be_actioned, action_to_take, wait_
     }
     action_number = action_number + 1
     //is there a wait planned
-
     if (wait_condition instanceof WebElementCondition || wait_condition instanceof Condition || typeof(wait_condition) == 'function'){
         //if so, perform it
         try{
@@ -134,7 +118,6 @@ async function nate_action(driver, element_to_be_actioned, action_to_take, wait_
 
  
     //gets the post action output
-
     page_title = await driver.getTitle()
     page_source = await driver.getPageSource()
     file_name = output_folder+"Action "+action_number+" After "+action_to_take +" Input " + dict_key + " Title " + page_title + ".html"
