@@ -162,6 +162,7 @@ async function main_run() {
     
             //press submit
             await nate_action(driver, By.id("btn"),"click",until.titleContains("Page 4"))
+			console.log("finished sucessfully")
     
         }
         catch{
